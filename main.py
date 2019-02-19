@@ -6,7 +6,6 @@ import os
 app = Flask(__name__)
 
 # Settings
-app.config['DEBUG'] = True
 
 
 # Views
