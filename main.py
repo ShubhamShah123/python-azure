@@ -1,19 +1,18 @@
 # -*- coding: utf-8 -*-
 # Librarys
-from flask import Flask, render_template
+from flask import Flask, render_template, jsonify
 import os
 # Variables
 app = Flask(__name__)
 
 # Settings
 app.config['DEBUG'] = True
-app.config['SECRET_KEY'] = 'secret'
 
 
 # Views
-@app.route('/', methods=('GET', 'POST'))
+@app.route('/', methods=['GET'])
 def index():
-	return render_template('name.html')
+	return jsonify({'status': 'Hello, World ! Running flask on Azure'}), 200
 
 
 # Run
