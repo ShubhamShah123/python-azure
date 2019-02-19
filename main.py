@@ -11,7 +11,7 @@ app = Flask(__name__)
 # Views
 @app.route('/', methods=['GET'])
 def index():
-	return jsonify({'status': 'Hello, World ! Running flask on Azure'}), 200
+	return render_template('index.html')
 
 
 # Run
