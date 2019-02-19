@@ -1,13 +1,14 @@
 # -*- coding: utf-8 -*-
 # Librarys
 from flask import Flask, render_template, jsonify
+from flask.ext.cors import CORS
 import os
 # Variables
 app = Flask(__name__)
 
 # Settings
 
-
+CORS(app)
 # Views
 @app.route('/', methods=['GET'])
 def index():
