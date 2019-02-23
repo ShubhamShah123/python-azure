@@ -1,28 +1,52 @@
 from imports import *
+from flask.ext.mysql import MySQL
+
 app = Flask(__name__)
+
 
 DB_USERNAME = "shubhamshah"
 DB_PASSWORD = "Shubh@mshah123"
-CONNECTION_STRING = 'Driver={SQL Server};Server=tcp:sbssqlserver.database.windows.net,1433; Database=earthquakeDB; uid=shubhamshah@sbssqlserver;pwd=Shubh@mshah123'
 
+
+mysql = MySQL()
+app.config['MYSQL_DATABASE_USER'] = 'shubhamshah@sbssqlserver'
+app.config['MYSQL_DATABASE_PASSWORD'] = DB_PASSWORD
+app.config['MYSQL_DATABASE_DB'] = 'earthquakeDB'
+app.config['MYSQL_DATABASE_HOST'] = 'tcp:sbssqlserver.database.windows.net,1433;'
+mysql.init_app(app)
 
 def connect():
-	connection = pdbc.connect()
-	if connection:
-		print("Success fully connected to the database")
+	print("Connect()")
+	conn = mysql.connect()
+	print("Con")
+	if conn:
+		print("CURSOR: YES\n")
+		cursor = conn.cursor()
+		if cursor:
+			print("\tCURSOR: YES\n")
+			return cursor
+		else:
+			print("\tCURSOR: NO\n")
+			return 0
 	else:
-		print("Connection failed")
-	connection.close()
+		print("CONN: NO")
+		return 0
 
 @app.route('/')
 def hello_world():
-  return render_template('index.html', name = "Shah Shubham !!", net_id = "sbs8554")
+  return render_template('index.html', name = "Shah Shubham", stud_id = "sbs8554")
 
 
-@app.route('/connect')
+@app.route('/connect', methods=['GET'])
 def connect_db():
-	connect()
-	return jsonify({'status': 'Connection'}), 200
+	print("-- connect db ---")
+	con = connect()
+	# if con:
+	# 	con.execute('select * from data;')
+	# 	results = con.fetchall()
+	# else:
+	# 	pass
+	return jsonify({'status':'results'}), 200
 
 if __name__ == '__main__':
   port = int(os.getenv('PORT', 8000))

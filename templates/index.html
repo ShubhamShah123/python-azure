@@ -1,9 +1,62 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-	<title>Azure</title>
+    <title>{{title}}</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
 </head>
+
 <body>
-<h3>Name: {{ name }}, NetID: {{ net_id }} 
+    <div class="container">
+      <h3>{{name}}: {{stud_id}}</h3>
+      <div class="form-horizontal">
+        <!-- <div class="form-group">
+          <label class="control-label col-sm-2" for="magnitude">Magnitude:</label>
+          <div class="col-sm-2">
+            <input type="number" class="form-control" id="magnitude" placeholder="Enter Magnitude" name="magnitude">
+          </div>
+        </div> -->
+        <div class="form-group">        
+          <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-default" onclick="display()">Submit</button>&nbsp;&nbsp;
+            <!-- <button type="submit" class="btn btn-default" onclick="window.history.back()">Back</button> -->
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label col-sm-2" for="count">Total Count:</label>
+          <div class="col-sm-2">
+            <input type="number" class="form-control" id="count" name="count" readonly="">
+          </div>
+        </div>
+      </div>
+    </div>
 </body>
+
 </html>
+
+<script>
+
+	function display()
+	{
+		// var mag = document.getElementById("magnitude").value;
+		// alert(mag);
+		$.ajax({
+			method: "GET",
+			url: "./connect",
+			// contentType: "application/json",
+			// data: JSON.stringify({ mag: mag })
+		})
+		.done(function(data){
+			alert("Recieved")
+			console.log("Return: ")
+			console.log(data)
+			// document.getElementById("magnitude").value = "";
+			// document.getElementById("count").value = data['status'][0]['count'];
+		});
+	}
+
+	
+</script>
