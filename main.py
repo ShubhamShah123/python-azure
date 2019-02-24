@@ -9,10 +9,10 @@ DB_PASSWORD = "Shubh@mshah123"
 
 
 mysql = MySQL()
-app.config['MYSQL_DATABASE_USER'] = 'shubhamshah@sbssqlserver'
-app.config['MYSQL_DATABASE_PASSWORD'] = DB_PASSWORD
-app.config['MYSQL_DATABASE_DB'] = 'earthquakeDB'
-app.config['MYSQL_DATABASE_HOST'] = 'tcp:sbssqlserver.database.windows.net,1433;'
+app.config['MYSQL_DATABASE_USER'] = 'root'
+app.config['MYSQL_DATABASE_PASSWORD'] = 'shubham123'
+app.config['MYSQL_DATABASE_DB'] = 'dbtest'
+app.config['MYSQL_DATABASE_HOST'] = 'localhost'
 mysql.init_app(app)
 
 def connect():
@@ -37,16 +37,16 @@ def hello_world():
   return render_template('index.html', name = "Shah Shubham", stud_id = "sbs8554")
 
 
-# @app.route('/connect', methods=['GET'])
-# def connect_db():
-# 	print("-- connect db ---")
-# 	con = connect()
-# 	# if con:
-# 	# 	con.execute('select * from data;')
-# 	# 	results = con.fetchall()
-# 	# else:
-# 	# 	pass
-# 	return jsonify({'status':'results'}), 200
+@app.route('/connect', methods=['GET'])
+def connect_db():
+	print("-- connect db ---")
+	con = connect()
+	if con:
+		con.execute('select * from data;')
+		results = con.fetchall()
+	else:
+		pass
+	return jsonify({'status':results}), 200
 
 if __name__ == '__main__':
   port = int(os.getenv('PORT', 8000))
